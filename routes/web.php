@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HolaController;
+use App\Http\Controllers\TasksController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,12 +23,14 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::post("/hola", [HolaController::class, "saludar"])->name("saludo");
+// Route::post("/hola", [HolaController::class, "saludar"])->name("saludo");
+// Route::get("saludos", [HolaController::class, "saludos"])->name("listar");
+// Route::get("editar/{id}", [HolaController::class, "editar"])->name("editar");
+// Route::post("editar/{id}", [HolaController::class, "actualizar"])->name("actualizar");
+// Route::post("eliminar/{id}", [HolaController::class, "eliminar"])->name("eliminar");
 
-Route::get("saludos", [HolaController::class, "saludos"])->name("listar");
 
-Route::get("editar/{id}", [HolaController::class, "editar"])->name("editar");
-
-Route::post("editar/{id}", [HolaController::class, "actualizar"])->name("actualizar");
-
-Route::post("eliminar/{id}", [HolaController::class, "eliminar"])->name("eliminar");
+Route::resource('tasks', TasksController::class)
+  ->except('show')
+  //->only(['index', 'create'])
+  ->names('tasks');
